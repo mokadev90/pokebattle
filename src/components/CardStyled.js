@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const CardStyled = styled.div`
-  width: 14rem;
-  height: 18rem;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     linear-gradient(
       228.53deg,
@@ -14,7 +12,14 @@ export const CardStyled = styled.div`
       rgba(0, 0, 0, 0.2) 6.13%,
       rgba(0, 0, 0, 0) 102.58%
     ),
-    linear-gradient(0deg, #78dd67, #78dd67);
+    linear-gradient(
+      0deg,
+      ${({ theme, type }) => theme.colorType[type]},
+      ${({ theme, type }) => theme.colorType[type]}
+    );
+  /* color: ; */
+  width: 14rem;
+  height: 18rem;
   margin: 20px;
   padding: 15px;
   display: flex;
@@ -39,5 +44,14 @@ export const CardStyled = styled.div`
     & > img {
       width: 100%;
     }
+  }
+
+  & > .stats {
+    display: flex;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: space-around;
+    height: 100%;
+    align-items: center;
   }
 `;
