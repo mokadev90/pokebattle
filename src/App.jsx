@@ -1,17 +1,12 @@
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { CardStyled } from './components/CardStyled';
-import { Image } from './components/Image';
 import { Ribbon } from './components/Ribbon/Ribbon';
-import { RibbonStyled } from './components/Ribbon/RibbonStyled';
 import Theme from '../theme';
-import { useOnScreen } from './utils/useOnScreen';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
-  const [counter, setCounter] = useState(0);
-  //   const [fetchPokemons, setFetchPokemons] = useState([]);
 
   const postLocal = (data) =>
     localStorage.setItem('pokemons', JSON.stringify(data));
