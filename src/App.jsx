@@ -20,13 +20,14 @@ function App() {
   };
 
   useEffect(() => {
+    const local = getLocal();
+    local ? setPokemons(local) : fetchs();
     const fetchs = async () => {
       const fetchingPokes = await fetchPokes();
       console.log(fetchingPokes);
       postLocal(fetchingPokes);
       setPokemons(fetchingPokes);
     };
-    fetchs();
   }, []);
 
   const filterPokes = (value) => {
@@ -129,7 +130,7 @@ function App() {
                 <input type="text" onChange={handleChange} />
               </div>
               <div className="card-container">
-                {pokemons !== [] &&
+                {pokemons !== null &&
                   pokemons.map((pokemon) => {
                     //   console.log(pokemon);
                     return (
