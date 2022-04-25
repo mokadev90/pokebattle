@@ -1,0 +1,79 @@
+.App {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 16px;
+}
+
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  background: rgba(57, 91, 169, 1);
+  border-radius: 0px 0px 88px 88px;
+  display: flex;
+  justify-content: center;
+  width: 18rem;
+  height: 3rem;
+}
+
+.title > span {
+  font-size: 2.2rem;
+  color: #ffcc04;
+  text-shadow: 3px 4px 5px rgba(201, 161, 1, 1);
+}
+
+.input {
+  align-self: flex-start;
+  margin: 3rem;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 10px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.input > input {
+  border: 0;
+  border-left: 2px solid rgba(57, 91, 169, 1);
+  border-bottom: 2px solid rgba(57, 91, 169, 1);
+  outline: 0;
+  height: 2rem;
+  font-size: 1.5rem;
+}
+
+.input > input:focus {
+  border: 0;
+  border-left: 2px solid rgba(57, 91, 169, 1);
+  border-bottom: 2px solid rgba(57, 91, 169, 1);
+}
+
+.input > label {
+  background-color: rgba(57, 91, 169, 1);
+  border-radius: 44px 44px 44px 0px;
+  color: rgba(255, 204, 4, 1);
+  font-size: 1.2rem;
+  width: 13rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-shadow: 1px 2px 3px rgba(201, 161, 1, 1);
+}
+
+.card-container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+img {
+  position: sticky;
+  top: 0;
+}
