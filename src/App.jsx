@@ -6,9 +6,11 @@ import { Image } from './components/Image';
 import { Ribbon } from './components/Ribbon/Ribbon';
 import { RibbonStyled } from './components/Ribbon/RibbonStyled';
 import Theme from '../theme';
+import { useOnScreen } from './utils/useOnScreen';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
+  const [counter, setCounter] = useState(0);
   //   const [fetchPokemons, setFetchPokemons] = useState([]);
 
   const postLocal = (data) =>
@@ -35,6 +37,7 @@ function App() {
           })
         )
       );
+      postLocal([...mapFetchPokes]);
       setPokemons([...mapFetchPokes]);
     };
 
@@ -42,15 +45,28 @@ function App() {
   }, []);
 
   //   postLocal(pokemons.slice(0, 20));
-  const scrollComponent = useRef();
+  //   const ref = useRef();
 
-  const handleScroll = () => {
-    let element = scrollComponent.value;
-    if (element.getBoundingClientRect().bottom < window.innerHeight) {
-      //   loadMoreCharacters();
-    }
-  };
+  //   console.log(ref.current);
 
+  //   const onScreen = useOnScreen(ref);
+
+  //   const handleScroll = () => {
+  //     console.log(scrollComponent);
+  //     let element = scrollComponent.value;
+  //     if (element.getBoundingClientRect().bottom < window.innerHeight) {
+  //       loadMorePokemons();
+  //     }
+  //   };
+
+  //   const loadMorePokemons = () => {
+  //     const allPokemons = getLocal();
+  //     console.log(allPokemons);
+  //     setPokemons(allPokemons.slice(counter, counter + 50));
+  //     setCounter((prev) => prev + 50);
+  //   };
+
+  //   loadMorePokemons();
   return (
     <Theme>
       <div className="App">
@@ -63,40 +79,38 @@ function App() {
             <label>Busca tu favorito!</label>
             <input type="text" />
           </div>
-          <div className="card-container" ref={scrollComponent}>
-            {console.log(pokemons)}
-            {pokemons.length > 0 &&
-              pokemons.slice(0, 50).map((pokemon) => {
-                //   console.log(pokemon);
-                return (
-                  <CardStyled
-                    className="card"
-                    type={pokemon.type}
-                    key={pokemon.id}
-                  >
-                    <label>{pokemon.name.toUpperCase()}</label>
-                    <div className="img-container">
-                      <img src={pokemon.sprites} />
+          <div className="card-container">
+            {pokemons.map((pokemon) => {
+              //   console.log(pokemon);
+              return (
+                <CardStyled
+                  className="card"
+                  type={pokemon.type}
+                  key={pokemon.id}
+                >
+                  <label>{pokemon.name.toUpperCase()}</label>
+                  <div className="img-container">
+                    <img src={pokemon.sprites} />
+                  </div>
+                  <div className="stats">
+                    <div className="first-col">
+                      <span>HP - {pokemon.stats[0].base_stat}</span>
+                      <br />
+                      <span>ATK - {pokemon.stats[1].base_stat}</span>
+                      <br />
+                      <span>DEF - {pokemon.stats[2].base_stat}</span>
                     </div>
-                    <div className="stats">
-                      <div className="first-col">
-                        <span>HP - {pokemon.stats[0].base_stat}</span>
-                        <br />
-                        <span>ATK - {pokemon.stats[1].base_stat}</span>
-                        <br />
-                        <span>DEF - {pokemon.stats[2].base_stat}</span>
-                      </div>
-                      <div className="second-col">
-                        <span>SP. ATK - {pokemon.stats[3].base_stat}</span>
-                        <br />
-                        <span>SP. DEF - {pokemon.stats[4].base_stat}</span>
-                        <br />
-                        <span>SPD - {pokemon.stats[5].base_stat}</span>
-                      </div>
+                    <div className="second-col">
+                      <span>SP. ATK - {pokemon.stats[3].base_stat}</span>
+                      <br />
+                      <span>SP. DEF - {pokemon.stats[4].base_stat}</span>
+                      <br />
+                      <span>SPD - {pokemon.stats[5].base_stat}</span>
                     </div>
-                  </CardStyled>
-                );
-              })}
+                  </div>
+                </CardStyled>
+              );
+            })}
           </div>
         </div>
         <Ribbon />

@@ -43,6 +43,7 @@ export const CardStyled = styled.div`
 
     & > img {
       width: 100%;
+      max-width: 80%;
     }
   }
 

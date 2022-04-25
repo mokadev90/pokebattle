@@ -36,6 +36,7 @@
   top: 10px;
   background-color: #fff;
   border-radius: 44px;
+  z-index: 99;
 }
 
 .input > input {
