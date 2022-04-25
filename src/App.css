@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: flex-start;
   font-size: 16px;
+  scroll-margin-top: 0;
 }
 
 .App > img {
@@ -77,7 +78,19 @@
   align-items: center;
   text-shadow: 1px 2px 3px rgba(201, 161, 1, 1);
 }
+.battle-container {
+  display: flex;
+  justify-content: center;
+}
 
+.back {
+  position: absolute;
+  width: 50rem;
+}
+
+.arena {
+  z-index: 9;
+}
 .card-container {
   width: 100%;
   display: grid;
