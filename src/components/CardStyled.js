@@ -29,6 +29,7 @@ export const CardStyled = styled.div`
   border: thick solid black;
   font-size: 1.2rem;
   color: white;
+  text-shadow: 2px 2px 2px black;
 
   & > .img-container {
     background-color: #dbdbdb;
@@ -55,4 +56,8 @@ export const CardStyled = styled.div`
     height: 100%;
     align-items: center;
   }
+
+  /* & span {
+    text-shadow: 2px 2px 2px black;
+  } */
 `;

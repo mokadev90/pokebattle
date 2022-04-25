@@ -44,29 +44,19 @@ function App() {
     fetchPokes();
   }, []);
 
-  //   postLocal(pokemons.slice(0, 20));
-  //   const ref = useRef();
+  const filterPokes = (value) => {
+    const allPokemons = getLocal();
+    const findPoke = allPokemons.filter((poke) => poke.name.includes(value));
+    console.log('findPoke', findPoke);
+    setPokemons(findPoke);
+  };
 
-  //   console.log(ref.current);
+  const handleChange = (e) => {
+    const { value } = e.target;
+    console.log(value);
+    value === '' ? setPokemons(getLocal()) : filterPokes(value);
+  };
 
-  //   const onScreen = useOnScreen(ref);
-
-  //   const handleScroll = () => {
-  //     console.log(scrollComponent);
-  //     let element = scrollComponent.value;
-  //     if (element.getBoundingClientRect().bottom < window.innerHeight) {
-  //       loadMorePokemons();
-  //     }
-  //   };
-
-  //   const loadMorePokemons = () => {
-  //     const allPokemons = getLocal();
-  //     console.log(allPokemons);
-  //     setPokemons(allPokemons.slice(counter, counter + 50));
-  //     setCounter((prev) => prev + 50);
-  //   };
-
-  //   loadMorePokemons();
   return (
     <Theme>
       <div className="App">
@@ -77,7 +67,7 @@ function App() {
           </div>
           <div className="input">
             <label>Busca tu favorito!</label>
-            <input type="text" />
+            <input type="text" onChange={handleChange} />
           </div>
           <div className="card-container">
             {pokemons.map((pokemon) => {
