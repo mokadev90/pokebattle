@@ -11,7 +11,8 @@ export const fetchPokes = async () => {
         return {
           id: res.data.id,
           name: res.data.name,
-          sprites: res.data.sprites.front_default,
+          front_default: res.data.sprites.front_default,
+          back_default: res.data.sprites.back_default,
           type: res.data.types[0].type.name,
           stats: res.data.stats,
         };

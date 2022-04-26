@@ -31,12 +31,41 @@ export const CardBattleStyled = styled.div`
   color: white;
   text-shadow: 2px 2px 2px black;
   z-index: 9;
+  margin-bottom: 3rem;
 
-  & > .img-container {
+  .card-header {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1rem;
+  }
+
+  .card-body {
+    display: flex;
+  }
+
+  .attacks {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .attacks > span {
+    margin-bottom: 1rem;
+  }
+
+  .option-btn {
+    margin-top: 1rem;
+    z-index: 99;
+  }
+
+  .option-btn > * {
+    pointer-events: none;
+  }
+  & .img-container {
     background-color: #dbdbdb;
     width: 12rem;
-    height: 7rem;
-    border-radius: 32px;
+    height: 14rem;
+    border-radius: 34px;
     margin-top: 1rem;
     display: flex;
     justify-content: center;
@@ -56,6 +85,32 @@ export const CardBattleStyled = styled.div`
     justify-content: space-around;
     height: 100%;
     align-items: center;
+  }
+
+  .option-btn {
+    margin: 0.5rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .option-btn:hover {
+    background-color: rgba(57, 91, 169, 1);
+    color: rgba(255, 204, 4, 1);
+  }
+
+  .atk {
+    display: flex;
+    align-items: center;
+  }
+
+  & svg {
+    font-size: 3rem;
   }
 
   /* & span {

@@ -1,13 +1,11 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { CardStyled } from './components/CardStyled';
 import { Ribbon } from './components/Ribbon/Ribbon';
 import Theme from '../theme';
 import { getLocal, postLocal } from './services/local';
 import { fetchPokes } from './utils/fetchPokes';
-import { CardBattleStyled } from './components/CardBattleStyled';
-import back from './assets/back.svg';
+import { Battle } from './views/Battle';
+import { Selector } from './views/Selector';
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -21,37 +19,14 @@ function App() {
 
   useEffect(() => {
     const local = getLocal();
-    local ? setPokemons(local) : fetchs();
     const fetchs = async () => {
       const fetchingPokes = await fetchPokes();
       console.log(fetchingPokes);
       postLocal(fetchingPokes);
       setPokemons(fetchingPokes);
     };
+    local ? setPokemons(local) : fetchs();
   }, []);
-
-  const filterPokes = (value) => {
-    const allPokemons = getLocal();
-    const findPoke = allPokemons.filter((poke) => poke.name.includes(value));
-    console.log('findPoke', findPoke);
-    setPokemons(findPoke);
-  };
-
-  const handleChange = (e) => {
-    const { value } = e.target;
-    console.log(value);
-    value === '' ? setPokemons(getLocal()) : filterPokes(value);
-  };
-
-  const handleClick = (pokemon) => {
-    getRandomPokemon();
-    setPokemonSelected(pokemon);
-    window.scroll({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-  };
 
   return (
     <Theme>
@@ -62,111 +37,20 @@ function App() {
             <span>Pokebattle!</span>
           </div>
           {pokemonSelected ? (
-            <div className="battle-container" style={{ scrollTop: 0 }}>
-              <img src={back} className="back" />
-              <div className="arena">
-                <CardBattleStyled
-                  className="card"
-                  type={randomPokemon.type}
-                  key={randomPokemon.id}
-                >
-                  <label>{randomPokemon.name.toUpperCase()}</label>
-                  <div className="img-container">
-                    <img src={randomPokemon.sprites} />
-                  </div>
-                  <div className="stats">
-                    <div className="first-col">
-                      <span>HP - {randomPokemon.stats[0].base_stat}</span>
-                      <br />
-                      <span>ATK - {randomPokemon.stats[1].base_stat}</span>
-                      <br />
-                      <span>DEF - {randomPokemon.stats[2].base_stat}</span>
-                    </div>
-                    <div className="second-col">
-                      <span>SP. ATK - {randomPokemon.stats[3].base_stat}</span>
-                      <br />
-                      <span>SP. DEF - {randomPokemon.stats[4].base_stat}</span>
-                      <br />
-                      <span>SPD - {randomPokemon.stats[5].base_stat}</span>
-                    </div>
-                  </div>
-                </CardBattleStyled>
-                <CardBattleStyled
-                  className="card"
-                  type={pokemonSelected.type}
-                  key={pokemonSelected.id}
-                >
-                  <label>{pokemonSelected.name.toUpperCase()}</label>
-                  <div className="img-container">
-                    <img src={pokemonSelected.sprites} />
-                  </div>
-                  <div className="stats">
-                    <div className="first-col">
-                      <span>HP - {pokemonSelected.stats[0].base_stat}</span>
-                      <br />
-                      <span>ATK - {pokemonSelected.stats[1].base_stat}</span>
-                      <br />
-                      <span>DEF - {pokemonSelected.stats[2].base_stat}</span>
-                    </div>
-                    <div className="second-col">
-                      <span>
-                        SP. ATK - {pokemonSelected.stats[3].base_stat}
-                      </span>
-                      <br />
-                      <span>
-                        SP. DEF - {pokemonSelected.stats[4].base_stat}
-                      </span>
-                      <br />
-                      <span>SPD - {pokemonSelected.stats[5].base_stat}</span>
-                    </div>
-                  </div>
-                </CardBattleStyled>
-              </div>
-            </div>
+            <Battle
+              pokemons={pokemons}
+              pokemonSelected={pokemonSelected}
+              randomPokemon={randomPokemon}
+              setRandomPokemon={setRandomPokemon}
+              setPokemonSelected={setPokemonSelected}
+            />
           ) : (
-            <>
-              <div className="input">
-                <label>Busca tu favorito!</label>
-                <input type="text" onChange={handleChange} />
-              </div>
-              <div className="card-container">
-                {pokemons !== null &&
-                  pokemons.map((pokemon) => {
-                    //   console.log(pokemon);
-                    return (
-                      <CardStyled
-                        className="card"
-                        type={pokemon.type}
-                        key={pokemon.id}
-                        onClick={() => {
-                          handleClick(pokemon);
-                        }}
-                      >
-                        <label>{pokemon.name.toUpperCase()}</label>
-                        <div className="img-container">
-                          <img src={pokemon.sprites} />
-                        </div>
-                        <div className="stats">
-                          <div className="first-col">
-                            <span>HP - {pokemon.stats[0].base_stat}</span>
-                            <br />
-                            <span>ATK - {pokemon.stats[1].base_stat}</span>
-                            <br />
-                            <span>DEF - {pokemon.stats[2].base_stat}</span>
-                          </div>
-                          <div className="second-col">
-                            <span>SP. ATK - {pokemon.stats[3].base_stat}</span>
-                            <br />
-                            <span>SP. DEF - {pokemon.stats[4].base_stat}</span>
-                            <br />
-                            <span>SPD - {pokemon.stats[5].base_stat}</span>
-                          </div>
-                        </div>
-                      </CardStyled>
-                    );
-                  })}
-              </div>
-            </>
+            <Selector
+              pokemons={pokemons}
+              setPokemonSelected={setPokemonSelected}
+              getRandomPokemon={getRandomPokemon}
+              setPokemons={setPokemons}
+            />
           )}
         </div>
         <Ribbon />
